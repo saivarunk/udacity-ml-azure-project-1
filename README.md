@@ -80,6 +80,71 @@ I have used several parameters for AutoML config :
 
 More information regarding AutoML can be found here : (https://docs.microsoft.com/en-us/azure/machine-learning/how-to-understand-automated-ml)
 
+### AutoML Best Model Output
+
+Some of the parameters from AutoML model :
+
+```python
+reg_alpha=0.7291666666666667
+reg_lambda=2.3958333333333335
+subsample=0.8
+```
+
+LogisticRegression Parameters :
+
+```python
+intercept_scaling=1
+l1_ratio=None
+max_iter=100
+multi_class='multinomial'
+n_jobs=1
+penalty='l2'
+solver='lbfgs'
+tol=0.0001
+warm_start=False
+```
+
+ExtraTreesClassifier Parameters :
+
+```python
+ccp_alpha=0.0
+class_weight='balanced'
+criterion='gini'
+max_depth=None
+max_features='sqrt'
+max_leaf_nodes=None, 
+max_samples=None
+min_impurity_decrease=0.0
+min_impurity_split=None
+min_samples_leaf=0.01
+min_samples_split=0.15052631578947367
+min_weight_fraction_leaf=0.0
+n_estimators=100
+n_jobs=1
+```
+
+Results from 
+
+```python
+best_class_automl, best_fit_model = remote.get_output()
+print(best_fit_model)
+```
+
+```python
+Pipeline(memory=None,
+         steps=[
+('datatransformer', DataTransformer(
+					enable_dnn=False, enable_feature_sweeping=False, feature_sweeping_config={}, feature_sweeping_timeout=86400, 									featurization_config=None, force_text_dnn=False, is_cross_validation=True, is_onnx_compatible=True, observer=None, 								task='classification', working_dir='/mnt/batch/tasks/shared/LS_root/mount...), 
+					random_state=0, 
+					reg_alpha=0.7291666666666667, 
+					reg_lambda=2.3958333333333335, 
+					subsample=0.8, tree_method='auto'))], verbose=False)), 
+('7', Pipeline(memory=None, steps=[('maxabsscaler', MaxAbsScaler(copy=True)), ('logisticregression', LogisticRegression(C=1.7575106248547894, class_weight=None, dual=False, fit_intercept=True, intercept_scaling=1, l1_ratio=None, max_iter=100, multi_class='multinomial', n_jobs=1, penalty='l2', random_state=None, solver='lbfgs', tol=0.0001, verbose=0, warm_start=False))], verbose=False)), 
+('2', Pipeline(memory=None, steps=[('maxabsscaler', MaxAbsScaler(copy=True)), ('extratreesclassifier', ExtraTreesClassifier(bootstrap=True, ccp_alpha=0.0, class_weight='balanced', criterion='gini', max_depth=None, max_features='sqrt', max_leaf_nodes=None, max_samples=None, min_impurity_decrease=0.0, min_impurity_split=None, min_samples_leaf=0.01, min_samples_split=0.15052631578947367, min_weight_fraction_leaf=0.0, n_estimators=100, n_jobs=1, oob_score=True, random_state=None, verbose=0, warm_start=False))], verbose=False))], flatten_transform=None, weights=[0.13333333333333333, 0.13333333333333333, 0.13333333333333333, 0.13333333333333333, 0.13333333333333333, 0.06666666666666667, 0.06666666666666667, 0.06666666666666667, 0.06666666666666667, 0.06666666666666667]))],
+         verbose=False)
+
+```
+
 ![AutoML Comparision](/images/automl-comparision.png)
 
 Below image shows metrics for AutoML model :
