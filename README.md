@@ -64,6 +64,22 @@ You can see the Hyperdrive models metrics in the below image :
 - Provided AutoML config with required parameters.
 - AutoML performace has been observed using RunDetails and best performing model is saved.
 
+### AutoML Parameters used
+
+I have used several parameters for AutoML config :
+
+- experiment_timeout_minutes - This parameter ensures the AutoML experiemnts don't run for longer durations.
+- task - Kind of ML task to be performed - e.g. classification/regression.
+- primary_metric - Name of the primary metric to be used. e.g. "accuracy".
+- training_data - pandas dataframe / numpy array of training data.
+- label_column_name - name of target variable.
+- n_cross_validations - No. of cross validation folds to be used in building AutoML models.
+- compute_target - Azure ML Compute instance where the AutoML needs to be run.
+- enable_early_stopping - This boolean parameter ensures that AutoML training doesn't take too much time and stops once the primary_metric reaches a saturation point above which the accuracy would not increase. 
+- enable_onnx_compatible_models - This parameter boolean makes sure that trained model can be exported in Onnx compatible format.
+
+More information regarding AutoML can be found here : (https://docs.microsoft.com/en-us/azure/machine-learning/how-to-understand-automated-ml)
+
 ![AutoML Comparision](/images/automl-comparision.png)
 
 Below image shows metrics for AutoML model :
@@ -86,9 +102,11 @@ Below image shows metrics for AutoML model :
 ## Future work
 **What are some areas of improvement for future experiments? Why might these improvements help the model?**
 
-- Explore more models like XGBoost, Catboost to use them with Hyperdrive for finding best parameters.
-- Do more extensive exploratory analysis on the bank marketing dataset so that we can do feature engineering.
-- Explore AutoML config for improving the model accuracy further.
+- Explore more models like XGBoost, Catboost to use them with Hyperdrive for finding best parameters. This will give scope for is to try new models which can give better accuracy.
+- Different sampling methods can be used with Hyperdrive instead of Random Sampling for parameter selection. This might give us different set of results.
+- Do more extensive exploratory analysis on the bank marketing dataset so that we can do feature engineering. New features can be created and added to the training features which can improve the accuracy further.
+- Also, there is class imbalance in the dataset, which has slight affect on accuracy. If we can address the issue with techniques like over-sampling, under-sampling or SMOTE, the accuracy can improve further.
+- For AutoML, we can experiment with different experiment_timeout_minutes, n_cross_validations and it might increase the performance if the model as more models can be created.
 
 ## Proof of cluster clean up
 
